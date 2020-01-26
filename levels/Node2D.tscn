@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://levels/KinematicBody2D.gd" type="Script" id=1]
+[ext_resource path="res://levels/Snowball.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32.3882, 36.8872 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 32 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="player1" type="KinematicBody2D" parent="."]
+position = Vector2( 64.0001, 64 )
+script = ExtResource( 1 )
+bullet = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="player1"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="player1"]
+position = Vector2( -6.10352e-005, 0 )
+scale = Vector2( 0.988019, 0.867509 )
+shape = SubResource( 1 )
+
+[node name="firepoint" type="Node" parent="player1"]
+
+[node name="player2" type="KinematicBody2D" parent="."]
+position = Vector2( 64, 160 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+bullet = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="player2"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="player2"]
+shape = SubResource( 2 )
+
+[node name="firepoint" type="Node" parent="player2"]
