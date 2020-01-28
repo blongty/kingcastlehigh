@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Root.gd" type="Script" id=1]
+[ext_resource path="res://background.png" type="Texture" id=2]
+[ext_resource path="res://player.png" type="Texture" id=3]
+[ext_resource path="res://Player.gd" type="Script" id=4]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 67.1682, 177.639, 43.0175, 178.771, 64.5267, 161.035, 84.9038, 159.903, 275.09, 137.262, 244.902, 170.469, 231.694, 178.016, 192.072, 179.903, 214.713, 159.526, 234.713, 142.922, 268.298, 119.149, 78.8661, 140.658, 59.2437, 145.186, 12.4519, 108.961, 43.0175, 102.168, 96.2244, 95.3758, 132.45, 102.923, 20, 10, 60, 10, 40, 40, 29.0555, 42.9237, 25.6593, 64.4328, 11.3198, 59.9046, 21.131, 85.5646, 51.6967, 79.1496, 106.413, 7.82977, 126.79, 4.43358, 121.13, 25.5654, 110.564, 33.4898, 33.5837, 65.9422, 44.1496, 58.3951, 67.9229, 53.8669, 78.8661, 69.7158, 152.827, 64.8102, 147.544, 25.5654, 312.825, 44.0557, 214.713, 56.8857, 96.9791, 44.8104, 93.9603, 66.6969, 248.675, 107.451, 229.808, 121.791, 244.147, 84.8099, 219.619, 98.0173, 221.506, 73.8666, 138.111, 34.2445, 145.28, 46.3198, 123.771, 63.3007, 94.3376, 72.7346, 105.658, 85.942, 139.243, 76.8855, 182.261, 61.7913, 310.184, 56.8857, 272.071, 61.0366 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7, 8, 9, 10 ), PoolIntArray( 11, 12, 13, 14, 15, 16 ), PoolIntArray( 17, 18, 19, 20 ), PoolIntArray( 20, 19, 21, 22 ), PoolIntArray( 23, 22, 21, 24 ), PoolIntArray( 25, 26, 27, 28 ), PoolIntArray( 24, 21, 29 ), PoolIntArray( 24, 29, 30, 31, 32 ), PoolIntArray( 11, 3, 2, 12 ), PoolIntArray( 33, 34, 35, 36 ), PoolIntArray( 32, 31, 37, 38 ), PoolIntArray( 39, 10, 9, 40 ), PoolIntArray( 41, 39, 40, 42, 43 ), PoolIntArray( 28, 27, 44, 45, 46, 38, 37 ), PoolIntArray( 32, 38, 47 ), PoolIntArray( 15, 32, 47, 48 ), PoolIntArray( 16, 15, 48, 49 ), PoolIntArray( 50, 16, 49, 33 ), PoolIntArray( 35, 51, 52, 36 ), PoolIntArray( 52, 41, 43, 36 ), PoolIntArray( 50, 33, 36 ) ]
+outlines = [ PoolVector2Array( 20, 10, 60, 10, 40, 40, 25.6593, 64.4328, 33.5837, 65.9422, 44.1496, 58.3951, 67.9229, 53.8669, 96.9791, 44.8104, 110.564, 33.4898, 106.413, 7.82977, 126.79, 4.43358, 121.13, 25.5654, 138.111, 34.2445, 145.28, 46.3198, 123.771, 63.3007, 93.9603, 66.6969, 94.3376, 72.7346, 105.658, 85.942, 139.243, 76.8855, 152.827, 64.8102, 147.544, 25.5654, 312.825, 44.0557, 310.184, 56.8857, 272.071, 61.0366, 244.147, 84.8099, 248.675, 107.451, 268.298, 119.149, 275.09, 137.262, 244.902, 170.469, 231.694, 178.016, 192.072, 179.903, 214.713, 159.526, 234.713, 142.922, 229.808, 121.791, 219.619, 98.0173, 221.506, 73.8666, 214.713, 56.8857, 182.261, 61.7913, 132.45, 102.923, 78.8661, 140.658, 84.9038, 159.903, 67.1682, 177.639, 43.0175, 178.771, 64.5267, 161.035, 59.2437, 145.186, 12.4519, 108.961, 43.0175, 102.168, 96.2244, 95.3758, 78.8661, 69.7158, 51.6967, 79.1496, 21.131, 85.5646, 11.3198, 59.9046, 29.0555, 42.9237 ) ]
+
+[sub_resource type="SpatialMaterial" id=2]
+
+[sub_resource type="QuadMesh" id=3]
+material = SubResource( 2 )
+size = Vector2( 5, 5 )
+
+[node name="Root" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="start point" type="MeshInstance2D" parent="."]
+position = Vector2( 216.031, 174.02 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 0, 0.263519 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Player" type="Sprite" parent="."]
+position = Vector2( 216.672, 177 )
+z_index = 1
+texture = ExtResource( 3 )
+offset = Vector2( 0, -7 )
+script = ExtResource( 4 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 1 )
+
+[node name="end point" type="MeshInstance2D" parent="."]
+position = Vector2( 70, 150 )
+mesh = SubResource( 3 )
