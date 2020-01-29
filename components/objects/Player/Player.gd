@@ -11,16 +11,16 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("W"):
 		rotation_degrees = 0
-		motion.y = -20
+		motion.y = -200
 	elif Input.is_action_pressed("S"):
 		rotation_degrees = 180
-		motion.y = 20
+		motion.y = 200
 	elif Input.is_action_pressed("A"):
 		rotation_degrees = 270
-		motion.x = -20
+		motion.x = -200
 	elif Input.is_action_pressed("D"):
 		rotation_degrees = 90
-		motion.x = 20
+		motion.x = 200
 	else:
 		motion.x = 0
 		motion.y = 0
@@ -45,4 +45,12 @@ func _physics_process(delta):
 		snowballcount -= 1;
 		bb = bullet.instance();
 		firepoint.add_child(bb);
+		
+	if Input.is_action_pressed("shoot") and snowballcount > 0:
+		snowballcount -= 1
+		bb = bullet.instance()
+		firepoint.add_child(bb)
+		bb.position = Vector2(position.x, position.y)
+		bb.set_direction(get_global_mouse_position())
+		
 	pass
