@@ -24,3 +24,7 @@ func set_direction(target : Vector2):
 #			print(direction)
 #			apply_impulse(Vector2(), direction.normalized() * speed)
 			
+
+
+func _on_other_area_entered(other : Area2D):
+	queue_free()

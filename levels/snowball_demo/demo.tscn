@@ -1,9 +1,37 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://levels/snowball_demo/demo.gd" type="Script" id=1]
 [ext_resource path="res://components/objects/snowball/snowball.tscn" type="PackedScene" id=2]
+[ext_resource path="res://components/objects/enemies/Enemy.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 963.435, 520.375 )
 script = ExtResource( 1 )
 snowball = ExtResource( 2 )
+
+[node name="Enemy" parent="." instance=ExtResource( 3 )]
+position = Vector2( 188.815, -323.682 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 172.948, 315.748 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 3 )]
+position = Vector2( -648.95, -103.134 )
+
+[node name="Enemy8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 399.842, -322.095 )
+
+[node name="Enemy9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 371.282, 17.4534 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -144.387, -310.988 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -306.229, 241.175 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 3 )]
+position = Vector2( -388.736, -184.054 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 645.777, -323.682 )
