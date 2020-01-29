@@ -34,4 +34,6 @@ position = Vector2( -306.229, 241.175 )
 position = Vector2( -388.736, -184.054 )
 
 [node name="Enemy5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 645.777, -323.682 )
+position = Vector2( 725.089, -242.037 )
+scale = Vector2( 3, 3 )
+life = 3

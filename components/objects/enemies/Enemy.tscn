@@ -3,12 +3,11 @@
 [ext_resource path="res://components/objects/enemies/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://components/objects/enemies/flamesheet.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 30.285
 height = 32.1351
 
-[sub_resource type="Animation" id=1]
-resource_name = "Flicker"
+[sub_resource type="Animation" id=2]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -36,7 +35,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -51,5 +50,5 @@ __meta__ = {
 pause_mode = 2
 playback_default_blend_time = 7.0
 playback_speed = 1.9
-anims/Flicker = SubResource( 1 )
+anims/Flicker = SubResource( 2 )
 [connection signal="area_entered" from="Area2D" to="." method="_on_snowball_enter"]

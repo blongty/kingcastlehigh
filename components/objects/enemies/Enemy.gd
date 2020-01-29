@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Enemy
 
+export(int) var life = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	($Anim as AnimationPlayer).play("Flicker")
@@ -12,4 +14,6 @@ func _ready():
 
 
 func _on_snowball_enter(area : Area2D):
-	queue_free()
+	life -= 1
+	if life <= 0:
+		queue_free()
