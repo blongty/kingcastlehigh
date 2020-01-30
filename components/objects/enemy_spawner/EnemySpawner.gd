@@ -6,6 +6,7 @@ var wave_num = 1
 export var wave_delay = 5
 export var enemy_delay = 0.5
 var NormalEnemy = preload("res://components/objects/enemies/Enemy.tscn")
+var FollowPath = preload("res://levels/path_follownode/follow.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +21,9 @@ func _process(delta):
 func spawn_this(TypeName):
 	if TypeName == "NE":
 		var node = NormalEnemy.instance()
-		add_child(node)
+		var path = FollowPath.instance()
+		add_child(path)
+		path.add_enemy(node)
 		print("spawn a enemy.")
 		
 func spawn_wave(waves, num):
@@ -38,4 +41,3 @@ func _on_wave_timeout():
 			$tick.set_wait_time(wave_delay)
 			$tick.set_one_shot(true)
 			$tick.start()
-	pass
