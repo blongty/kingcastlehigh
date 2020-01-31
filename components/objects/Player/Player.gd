@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var sound1 = AudioStreamPlayer.new()
 var speed = 0
 var in_range = 0
 var cool_down = 0
@@ -8,6 +9,11 @@ var snowballcount = 1;
 export (PackedScene) var bullet
 export (String) var nametag
 onready var firepoint = get_node("firepoint")
+
+func _ready():
+	self.add_child(sound1)
+	sound1.stream = load("res://catched.mp3")
+	sound1.play()
 
 func _physics_process(delta):
 	in_range -= 1
@@ -54,6 +60,7 @@ func _physics_process(delta):
 	update()
 	
 	if Input.is_action_just_released("shoot"+nametag) and snowballcount > 0:
+		sound1.play()
 		snowballcount -= 1
 		cool_down = 100
 		bb = bullet.instance()
