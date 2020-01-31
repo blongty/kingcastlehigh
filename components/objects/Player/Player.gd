@@ -9,6 +9,9 @@ export (PackedScene) var bullet
 export (String) var nametag
 onready var firepoint = get_node("firepoint")
 
+var canInteract = false
+var interactable = null
+
 func _physics_process(delta):
 	in_range -= 1
 	cool_down -= 1
@@ -62,7 +65,12 @@ func _physics_process(delta):
 		bb.set_direction(get_global_mouse_position())
 		bb._ready()
 		
-	pass
+	
+	# Interacting with object
+	if Input.is_action_just_pressed("interact"+nametag):
+		if canInteract:
+			interactable.interact()
+			print_debug('INTERACTED!')
 	
 func _draw():
 	if Input.is_action_pressed("shoot"+nametag) and snowballcount > 0:
@@ -70,3 +78,16 @@ func _draw():
 
 func _on_snowball_enter(area : Area2D):
 	in_range = 100
+	
+	print_debug('SOMETHING ENTERED!')
+	# If area detected on layer 5 (Generator Layer), allow interaction
+	if area.get_collision_layer() == 5:
+		print_debug('Player ' + nametag + ' can now interact w/ generator!')
+		interactable = area
+		canInteract = true
+
+func _on_Area2D_exit(area : Area2D):
+	# If area not detected on layer 5 (Generator layer), restrict interaction
+	if area.get_collision_layer() == 5:
+		print_debug('Player ' + nametag + ' can no longer interact w/ generator!')
+		canInteract = false

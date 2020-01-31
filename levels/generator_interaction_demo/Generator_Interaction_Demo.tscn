@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://components/objects/generator/SnowballGenerator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://components/objects/Player/Player.tscn" type="PackedScene" id=2]
+
+[node name="Node" type="Node"]
+
+[node name="SnowballGenerator" parent="." instance=ExtResource( 1 )]
+position = Vector2( 658, 434 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 389, 291 )
+nametag = "A"

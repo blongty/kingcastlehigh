@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://components/objects/generator/SnowballGenerator.gd" type="Script" id=1]
+[ext_resource path="res://components/objects/generator/sprite.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 260.65, 110.45 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 369.606
+
+[node name="SnowballGenerator" type="StaticBody2D"]
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -219.4
+margin_top = -194.75
+margin_right = -58.4
+margin_bottom = -180.75
+rect_scale = Vector2( 2.7751, 4.63886 )
+text = "Press ________ to interact!"
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="InteractionArea2D" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+position = Vector2( 2.19958, 2.85001 )
+shape = SubResource( 2 )

@@ -158,6 +158,14 @@ interactB={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="snowball"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="wall"
+2d_physics/layer_5="generator"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
