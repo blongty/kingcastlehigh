@@ -19,27 +19,40 @@ func _physics_process(delta):
 	in_range -= 1
 	cool_down -= 1
 	var bb;
+	motion.x = 0
+	motion.y = 0
 	
 	if Input.is_action_pressed("W"+nametag):
+		motion.y += -200
+	if Input.is_action_pressed("S"+nametag):
+		motion.y += 200
+	if Input.is_action_pressed("A"+nametag):
+		motion.x += -200
+	if Input.is_action_pressed("D"+nametag):
+		motion.x += 200
+		
+	if Input.is_action_pressed("W"+nametag):
 		rotation_degrees = 0
-		motion.y = -200
-	elif Input.is_action_pressed("S"+nametag):
+	if Input.is_action_pressed("S"+nametag):
 		rotation_degrees = 180
-		motion.y = 200
-	elif Input.is_action_pressed("A"+nametag):
+	if Input.is_action_pressed("A"+nametag):
 		rotation_degrees = 270
-		motion.x = -200
-	elif Input.is_action_pressed("D"+nametag):
+	if Input.is_action_pressed("D"+nametag):
 		rotation_degrees = 90
-		motion.x = 200
-	else:
-		motion.x = 0
-		motion.y = 0
+	if Input.is_action_pressed("A"+nametag) and Input.is_action_pressed("W"+nametag):
+		rotation_degrees = 315
+	if Input.is_action_pressed("A"+nametag) and Input.is_action_pressed("S"+nametag):
+		rotation_degrees = 225
+	if Input.is_action_pressed("D"+nametag) and Input.is_action_pressed("W"+nametag):
+		rotation_degrees = 45
+	if Input.is_action_pressed("D"+nametag) and Input.is_action_pressed("S"+nametag):
+		rotation_degrees = 135
+		
 	
 	if (Input.is_action_just_pressed("catch"+nametag) and in_range > 0 and cool_down <= 0):
 		in_range = 0
 		snowballcount += 1
-		#need visual or sound effect here!
+		sound1.play()
 		pass
 	
 #	if Input.is_action_pressed("ui_up"):
@@ -60,7 +73,6 @@ func _physics_process(delta):
 	update()
 	
 	if Input.is_action_just_released("shoot"+nametag) and snowballcount > 0:
-		sound1.play()
 		snowballcount -= 1
 		cool_down = 100
 		bb = bullet.instance()
