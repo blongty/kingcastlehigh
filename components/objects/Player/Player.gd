@@ -10,15 +10,12 @@ export (PackedScene) var bullet
 export (String) var nametag
 onready var firepoint = get_node("firepoint")
 
-<<<<<<< HEAD
 var canInteract = false
 var interactable = null
-=======
 func _ready():
 	self.add_child(sound1)
 	sound1.stream = load("res://catched.mp3")
 	sound1.play()
->>>>>>> f6786b116eee7dc5a968a04465102fe1ccb3cc6b
 
 func _physics_process(delta):
 	in_range -= 1
