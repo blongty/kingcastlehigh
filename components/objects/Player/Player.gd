@@ -12,10 +12,13 @@ onready var firepoint = get_node("firepoint")
 
 var canInteract = false
 var interactable = null
+var hasSnow = false
+
 func _ready():
 	self.add_child(sound1)
 	sound1.stream = load("res://catched.mp3")
 	sound1.play()
+	
 
 func _physics_process(delta):
 	in_range -= 1
@@ -86,9 +89,10 @@ func _physics_process(delta):
 	
 	# Interacting with object
 	if Input.is_action_just_pressed("interact"+nametag):
+		# If interaction is possible, call interaction on interactable object
 		if canInteract:
 			interactable.interact()
-			print_debug('INTERACTED!')
+			print_debug(snowballcount)
 	
 func _draw():
 	if Input.is_action_pressed("shoot"+nametag) and snowballcount > 0:
@@ -97,15 +101,11 @@ func _draw():
 func _on_snowball_enter(area : Area2D):
 	in_range = 100
 	
-	print_debug('SOMETHING ENTERED!')
-	# If area detected on layer 5 (Generator Layer), allow interaction
-	if area.get_collision_layer() == 5:
-		print_debug('Player ' + nametag + ' can now interact w/ generator!')
-		interactable = area
+	# If area detected is on Layer 5 = Bit 4 = 2^4 = 16 (Generator Layer), then turn on interaction
+	if area.collision_layer == 16:
+		interactable = area.get_parent()
 		canInteract = true
 
-func _on_Area2D_exit(area : Area2D):
-	# If area not detected on layer 5 (Generator layer), restrict interaction
-	if area.get_collision_layer() == 5:
-		print_debug('Player ' + nametag + ' can no longer interact w/ generator!')
-		canInteract = false
+
+func _on_Area2D_area_exited(area):
+	canInteract = false

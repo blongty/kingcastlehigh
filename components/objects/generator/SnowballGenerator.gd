@@ -1,6 +1,8 @@
 extends StaticBody2D
 
 var canInteract = false
+var hasSnowball = false
+var player = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,6 +13,7 @@ func _ready():
 # Turn on interactions if detecting an object from player layer
 func _on_InteractionArea2D_body_entered(body):
 	canInteract = true
+	player = body
 	var infoText = get_node('Label')
 	infoText.visible = true
 
@@ -18,6 +21,7 @@ func _on_InteractionArea2D_body_entered(body):
 # Turn off interactions if no longer detecting an object from player layer
 func _on_InteractionArea2D_body_exited(body):
 	canInteract = false
+	player = null
 	var infoText = get_node('Label')
 	infoText.visible = false
 
@@ -26,6 +30,8 @@ func interact():
 	if canInteract:
 		var infoText = get_node('Label')
 		infoText.text = 'INTERACTED!'
+		if player.hasSnow:
+			player.snowballcount += 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
