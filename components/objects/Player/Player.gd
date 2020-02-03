@@ -5,10 +5,11 @@ var speed = 0
 var timer = 0
 var in_range = 0
 var cool_down = 0
-var temp : bool = true;
+var temp  = 0;
 var motion = Vector2()
 var snowballcount = 3;
 export (PackedScene) var bullet
+export (PackedScene) var aim
 export (String) var nametag
 onready var firepoint = get_node("firepoint")
 
@@ -25,6 +26,7 @@ func _ready():
 func _physics_process(delta):
 	in_range -= 1
 	cool_down -= 1
+	temp -= 1
 	var bb;
 	motion.x = 0
 	motion.y = 0
@@ -97,15 +99,15 @@ func _physics_process(delta):
 			print_debug(snowballcount)
 	
 func _draw():
+	var bb
 	if Input.is_action_pressed("shoot"+nametag) and snowballcount > 0:
-		firepoint.get_child(0).position.x = 0
-		firepoint.get_child(0).position.y = 0
-		temp = true;
-		timer = 0;
-		while (temp and timer < 1000):
-			timer += 1
-			firepoint.get_child(0).position += get_local_mouse_position().normalized() * 2
-		draw_line(Vector2(0, 0), firepoint.get_child(0).position, Color(0,255,0), 10)
+		bb = aim.instance()
+		firepoint.add_child(bb)
+		bb.position = position
+		bb.set_direction(get_global_mouse_position())
+		bb._ready()
+		temp = 10;
+#		draw_line(Vector2 (0, 0), firepoint.get_child(0).position, Color(255,0,0), 10)
 
 func _on_snowball_enter(area : Area2D):
 	# If area detected is on Layer 5 = Bit 4 = 2^4 = 16 (Generator Layer), then turn on interaction
@@ -117,8 +119,3 @@ func _on_snowball_enter(area : Area2D):
 
 func _on_Area2D_area_exited(area):
 	canInteract = false
-
-
-func _encounter_obstacles(area):
-	print("obstacles")
-	temp = false

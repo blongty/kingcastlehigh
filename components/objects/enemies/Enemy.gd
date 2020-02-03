@@ -14,6 +14,7 @@ func _ready():
 
 
 func _on_snowball_enter(area : Area2D):
-	life -= 1
+	if area.collision_layer == 2:
+		life -= 1
 	if life <= 0:
 		queue_free()

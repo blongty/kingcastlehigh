@@ -3,10 +3,11 @@ extends RigidBody2D
 var direction : Vector2
 var life = 1
 
-export(float) var speed = 1000
+export(float) var speed = 5000
 
 # Once added to the scene tree, function will immediately start moving
 func _ready():
+	print ("shoot")
 	apply_impulse(Vector2(), direction.normalized() * speed)
 
 
@@ -31,4 +32,11 @@ func set_direction(target : Vector2, radius : float = -100):
 func _on_other_area_entered(other : Area2D):
 	life -= 1
 	if (life < 0):
+		get_parent().get_child(0).position = position;
 		queue_free()
+#	if(other.get_tree()):
+#		print(other.get_tree())
+#		pass
+#	else:
+#		print(other.get_tree())
+#		queue_free()
