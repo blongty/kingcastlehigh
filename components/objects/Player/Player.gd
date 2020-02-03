@@ -2,10 +2,12 @@ extends KinematicBody2D
 
 var sound1 = AudioStreamPlayer.new()
 var speed = 0
+var timer = 0
 var in_range = 0
 var cool_down = 0
+var temp : bool = true;
 var motion = Vector2()
-var snowballcount = 1;
+var snowballcount = 3;
 export (PackedScene) var bullet
 export (String) var nametag
 onready var firepoint = get_node("firepoint")
@@ -96,16 +98,27 @@ func _physics_process(delta):
 	
 func _draw():
 	if Input.is_action_pressed("shoot"+nametag) and snowballcount > 0:
-		draw_line(Vector2(0, 0), get_local_mouse_position(), Color(0,255,0), 10)
+		firepoint.get_child(0).position.x = 0
+		firepoint.get_child(0).position.y = 0
+		temp = true;
+		timer = 0;
+		while (temp and timer < 1000):
+			timer += 1
+			firepoint.get_child(0).position += get_local_mouse_position().normalized() * 2
+		draw_line(Vector2(0, 0), firepoint.get_child(0).position, Color(0,255,0), 10)
 
 func _on_snowball_enter(area : Area2D):
-	in_range = 100
-	
 	# If area detected is on Layer 5 = Bit 4 = 2^4 = 16 (Generator Layer), then turn on interaction
 	if area.collision_layer == 16:
 		interactable = area.get_parent()
 		canInteract = true
-
+	else:
+		in_range = 100
 
 func _on_Area2D_area_exited(area):
 	canInteract = false
+
+
+func _encounter_obstacles(area):
+	print("obstacles")
+	temp = false
