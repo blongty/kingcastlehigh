@@ -7,7 +7,9 @@ var in_range = 0
 var cool_down = 0
 var temp  = 0;
 var motion = Vector2()
-var snowballcount = 3;
+export var max_snowballcount = 3
+export var init_snowballcount = 3
+var snowballcount
 export (PackedScene) var bullet
 export (PackedScene) var aim
 export (String) var nametag
@@ -16,12 +18,35 @@ onready var firepoint = get_node("firepoint")
 var canInteract = false
 var interactable = null
 var hasSnow = false
+var full_ammo
 
 func _ready():
 	self.add_child(sound1)
 	sound1.stream = load("res://catched.mp3")
 	sound1.play()
+	snowballcount = init_snowballcount
 	
+	if snowballcount >= max_snowballcount:
+		full_ammo = true
+	else:
+		false
+
+func add_snowballcount(amount):
+	snowballcount += amount
+	if snowballcount > max_snowballcount:
+		full_ammo = true
+		var overflow = max_snowballcount - snowballcount
+		snowballcount = max_snowballcount
+		return overflow
+
+
+	return 0
+	
+func get_snowballcount():
+	return snowballcount
+	
+func get_max_snowballcount():
+	return max_snowballcount
 
 func _physics_process(delta):
 	in_range -= 1
@@ -39,23 +64,10 @@ func _physics_process(delta):
 		motion.x += -200
 	if Input.is_action_pressed("D"+nametag):
 		motion.x += 200
-		
-	if Input.is_action_pressed("W"+nametag):
-		rotation_degrees = 0
-	if Input.is_action_pressed("S"+nametag):
-		rotation_degrees = 180
-	if Input.is_action_pressed("A"+nametag):
-		rotation_degrees = 270
-	if Input.is_action_pressed("D"+nametag):
-		rotation_degrees = 90
-	if Input.is_action_pressed("A"+nametag) and Input.is_action_pressed("W"+nametag):
-		rotation_degrees = 315
-	if Input.is_action_pressed("A"+nametag) and Input.is_action_pressed("S"+nametag):
-		rotation_degrees = 225
-	if Input.is_action_pressed("D"+nametag) and Input.is_action_pressed("W"+nametag):
-		rotation_degrees = 45
-	if Input.is_action_pressed("D"+nametag) and Input.is_action_pressed("S"+nametag):
-		rotation_degrees = 135
+	
+	
+	if motion != Vector2(0,0):
+		set_rotation(atan2(motion.y, motion.x))
 		
 	
 	if (Input.is_action_just_pressed("catch"+nametag) and in_range > 0 and cool_down <= 0):
@@ -83,6 +95,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released("shoot"+nametag) and snowballcount > 0:
 		snowballcount -= 1
+		full_ammo = false
 		cool_down = 100
 		bb = bullet.instance()
 		firepoint.add_child(bb)
