@@ -24,6 +24,7 @@ var full_ammo
 var last_motion = Vector2(200, 0)
 export (int) var move_speed = 400
 export (float, 0, 1, 0.05) var joy_deadzone = 0.2
+var aiming = false
 
 func _ready():
 	#add_child(aim.instance())
@@ -74,8 +75,8 @@ func _process(delta):
 	# Draws trajectory of snowballs when SHOOT* is held down
 	if snowballcount > 0:
 		if Input.is_joy_button_pressed(player_id, JOY_BUTTON_5):
-			if Input.is_action_pressed("SHOOT") or Input.is_action_pressed("SHOOT_BY_MOUSE"):
-				draw_trajectory()
+			#if Input.is_action_pressed("SHOOT") or Input.is_action_pressed("SHOOT_BY_MOUSE"):
+			draw_trajectory()
 	
 	# Placeholder
 	if (Input.is_action_just_pressed("CATCH") and in_range > 0 and cool_down <= 0):
@@ -131,16 +132,18 @@ func draw_trajectory():
 	bb = aim.instance()
 	bb.position = position
 	
-	if using_r_stick():
+	if abs(Input.get_joy_axis(player_id, JOY_AXIS_2)) > joy_deadzone or \
+	  abs(Input.get_joy_axis(player_id, JOY_AXIS_3)) > joy_deadzone:
 		bb.set_direction_offset(Vector2(Input.get_joy_axis(get_player_id(), JOY_AXIS_2), Input.get_joy_axis(get_player_id(), JOY_AXIS_3)))
-	elif not using_r_stick() and not Input.is_mouse_button_pressed(BUTTON_LEFT):
+#	elif not using_r_stick() and not Input.is_mouse_button_pressed(BUTTON_LEFT):
+	else:
 		if motion != Vector2.ZERO:
 			bb.set_direction_offset(motion)
 			last_motion = motion
 		else:
 			bb.set_direction_offset(last_motion)
-	elif Input.is_mouse_button_pressed(BUTTON_LEFT):
-		bb.set_direction_absolute(get_global_mouse_position())
+#	elif Input.is_mouse_button_pressed(BUTTON_LEFT):
+#		bb.set_direction_absolute(get_global_mouse_position())
 	
 	# Adds to the scene and draws it
 	get_tree().get_root().add_child(bb)
