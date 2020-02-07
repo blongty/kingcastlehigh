@@ -109,17 +109,19 @@ func _input(event):
 				bb = bullet.instance()
 				bb.position = position
 				
-				if using_r_stick():
+				if abs(Input.get_joy_axis(player_id, JOY_AXIS_2)) > joy_deadzone or \
+	  			  abs(Input.get_joy_axis(player_id, JOY_AXIS_3)) > joy_deadzone:
 					bb.set_direction_offset(Vector2(Input.get_joy_axis(get_player_id(), JOY_AXIS_2), Input.get_joy_axis(get_player_id(), JOY_AXIS_3)))
-				elif !using_r_stick() and not Input.is_action_just_released("SHOOT_BY_MOUSE"):
+				#elif !using_r_stick() and not Input.is_action_just_released("SHOOT_BY_MOUSE"):
+				else:
 					if motion != Vector2.ZERO:
 						bb.set_direction_offset(motion)
 						last_motion = motion
 					else:
 						bb.set_direction_offset(last_motion)
-				elif Input.is_action_just_released("SHOOT_BY_MOUSE"):
-					bb.set_direction_absolute(get_global_mouse_position())
-								
+#				elif Input.is_action_just_released("SHOOT_BY_MOUSE"):
+#					bb.set_direction_absolute(get_global_mouse_position())
+#
 				# Add snowball to scene and fire
 				get_tree().get_root().add_child(bb)
 				snowballcount -= 1
