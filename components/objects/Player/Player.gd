@@ -37,6 +37,9 @@ func _ready():
 		full_ammo = false
 
 func _physics_process(delta):
+	move_and_slide(motion);
+
+func _process(delta):
 	in_range -= 1
 	cool_down -= 1
 	temp -= 1
@@ -53,7 +56,6 @@ func _physics_process(delta):
 		motion.y += move_speed * Input.get_action_strength("MOVE_DOWN")
 		motion.x -= move_speed * Input.get_action_strength("MOVE_LEFT")
 		motion.x += move_speed * Input.get_action_strength("MOVE_RIGHT")	
-	move_and_slide(motion);
 	
 	# Rotation
 	if motion != Vector2(0,0):
