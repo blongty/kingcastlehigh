@@ -37,17 +37,20 @@ func _on_InteractionArea2D_area_entered(area):
 		storage += 1
 		if storage > max_storage:
 			storage = max_storage
+			
 
 # Should do something if player presses interaction button and canInteract == TRUE
 func interact():
 	if canInteract:
 		var infoText = get_node('Label')
 		infoText.text = 'INTERACTED!'
-		#if player.hasSnow == true:
-		if !player.full_ammo:
+		if !player.full_ammo and !player.hasSnow:
 			storage = player.add_snowballcount(storage)
-			player.hasSnow = false
 			print("storage has left " + str(storage))
+		elif player.hasSnow:
+			storage += 1
+			player.hasSnow = false
+			
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

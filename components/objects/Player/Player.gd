@@ -17,6 +17,7 @@ export (int) var player_id
 onready var firepoint = get_node("firepoint")
 
 var canInteract = false
+var snowpilecanInteract = false
 var interactable = null
 var hasSnow = false
 var full_ammo
@@ -136,12 +137,16 @@ func _on_snowball_enter(area : Area2D):
 	if area.collision_layer == 16:
 		interactable = area.get_parent()
 		canInteract = true
+	elif area.collision_layer == 32:
+		interactable = area.get_parent()
+		snowpilecanInteract = true
 	
 	else:
 		in_range = 100
 
 func _on_Area2D_area_exited(area):
 	canInteract = false
+	snowpilecanInteract = false
 
 func add_snowballcount(amount):
 	snowballcount += amount

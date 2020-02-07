@@ -37,3 +37,4 @@ position = Vector2( 703.868, 539.481 )
 [node name="SnowballGenerator" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1387.46, 676.885 )
 scale = Vector2( 0.562765, 0.412221 )
+init_storage = 0
