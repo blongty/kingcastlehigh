@@ -12,12 +12,14 @@ func _ready():
 
 # Call this function before adding the instance to the tree
 # Given a point, will launch snowball towards that point
-func set_direction(target : Vector2, radius : float = -100):
+func set_direction_absolute(target : Vector2, radius : float = -100):
 	if (radius == -100):
 		direction = target - get_transform().get_origin()
 		direction = direction.normalized()
-	else:
-		pass
+
+func set_direction_offset(offset: Vector2, radius: float = -100):
+	direction = offset
+	direction = direction.normalized()
 
 #func _input(event):
 #	if event is InputEventKey and event.scancode == KEY_SPACE:
