@@ -25,8 +25,8 @@ func _on_Area2D_body_exited(body):
 
 func interact():
 	if CanInteract:
-		var infoText = get_node('Lable')
-		infoText.text = 'Get Snow!'
+		var infoText = get_node('Label')
+		infoText.text = "Get Snow!"
 		if player.hasSnow == false:
 			player.hasSnow = true
 		

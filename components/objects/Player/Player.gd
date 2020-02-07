@@ -136,6 +136,7 @@ func _on_snowball_enter(area : Area2D):
 	if area.collision_layer == 16:
 		interactable = area.get_parent()
 		canInteract = true
+	
 	else:
 		in_range = 100
 

@@ -42,8 +42,11 @@ func interact():
 	if canInteract:
 		var infoText = get_node('Label')
 		infoText.text = 'INTERACTED!'
-		if !player.full_ammo:
-			storage = player.add_snowballcount(storage)
+		if player.hasSnow == true:
+			if !player.full_ammo:
+				storage = player.add_snowballcount(storage)
+				player.hasSnow = false
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
