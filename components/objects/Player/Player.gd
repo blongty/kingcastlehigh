@@ -21,7 +21,6 @@ var interactable = null
 var hasSnow = false
 var full_ammo
 var last_motion = Vector2(200, 0)
-export (float) var deadzone = .2
 export (int) var move_speed = 400
 
 func _ready():
@@ -130,7 +129,7 @@ func draw_trajectory():
 	
 	# Adds to the scene and draws it
 	get_tree().get_root().add_child(bb)
-	print_tree_pretty()
+	#print_tree_pretty()
 
 func _on_snowball_enter(area : Area2D):
 	# If area detected is on Layer 5 = Bit 4 = 2^4 = 16 (Generator Layer), then turn on interaction
