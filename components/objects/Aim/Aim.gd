@@ -34,9 +34,7 @@ func _on_other_area_entered(other : Area2D):
 	if (life < 0):
 		#get_parent().get_child(0).position = position;
 		queue_free()
-#	if(other.get_tree()):
-#		print(other.get_tree())
-#		pass
-#	else:
-#		print(other.get_tree())
-#		queue_free()
+
+
+func _on_Timer_timeout():
+	queue_free()
