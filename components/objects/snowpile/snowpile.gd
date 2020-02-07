@@ -16,6 +16,7 @@ func _on_Area2D_body_entered(body):
 	CanInteract = true
 	player = body
 	var infoText = get_node('Label')
+	infoText.text = "Collecte snow!"
 	infoText.visible = true
 
 func _on_Area2D_body_exited(body):

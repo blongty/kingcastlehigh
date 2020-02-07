@@ -21,6 +21,7 @@ func _on_InteractionArea2D_body_entered(body):
 	canInteract = true
 	player = body
 	var infoText = get_node('Label')
+	infoText.text = 'Press ________ to interact!!'
 	infoText.visible = true
 
 
