@@ -23,6 +23,7 @@ var hasSnow = false
 var full_ammo
 var last_motion = Vector2(200, 0)
 export (int) var move_speed = 400
+export (float, 0, 1, 0.05) var joy_deadzone = 0.2
 
 func _ready():
 	#add_child(aim.instance())
@@ -52,10 +53,19 @@ func _process(delta):
 	motion.y = 0
 	
 	if moving_at_all():
-		motion.y -= move_speed * Input.get_action_strength("MOVE_UP")
-		motion.y += move_speed * Input.get_action_strength("MOVE_DOWN")
-		motion.x -= move_speed * Input.get_action_strength("MOVE_LEFT")
-		motion.x += move_speed * Input.get_action_strength("MOVE_RIGHT")	
+		if abs(Input.get_joy_axis(player_id, JOY_AXIS_1)) > joy_deadzone or \
+			abs(Input.get_joy_axis(player_id, JOY_AXIS_0)) > joy_deadzone:
+			motion.y += move_speed * Input.get_joy_axis(player_id, JOY_AXIS_1)
+			motion.x += move_speed * Input.get_joy_axis(player_id, JOY_AXIS_0)
+#		elif player_id == 0:
+#			if Input.is_action_pressed("MOVE_UP"):
+#				motion.y -= move_speed
+#			if Input.is_action_pressed("MOVE_DOWN"):
+#				motion.y += move_speed
+#			if Input.is_action_pressed("MOVE_LEFT"):
+#				motion.x -= move_speed
+#			if Input.is_action_pressed("MOVE_RIGHT"):
+#				motion.x += move_speed			
 	
 	# Rotation
 	if motion != Vector2(0,0):
@@ -63,8 +73,9 @@ func _process(delta):
 	
 	# Draws trajectory of snowballs when SHOOT* is held down
 	if snowballcount > 0:
-		if Input.is_action_pressed("SHOOT") or Input.is_action_pressed("SHOOT_BY_MOUSE"):
-			draw_trajectory()
+		if Input.is_joy_button_pressed(player_id, JOY_BUTTON_5):
+			if Input.is_action_pressed("SHOOT") or Input.is_action_pressed("SHOOT_BY_MOUSE"):
+				draw_trajectory()
 	
 	# Placeholder
 	if (Input.is_action_just_pressed("CATCH") and in_range > 0 and cool_down <= 0):
@@ -72,33 +83,6 @@ func _process(delta):
 		snowballcount += 1
 		sound1.play()
 		pass
-	
-	# When releasing SHOOT* button, fires a snowball into the scene.
-	# 	Will aim with the right analog stick, though when centered within deadzones
-	#	it will fire in current direction. If mouse will fire at mouse.
-	#	With limitations of Input object, we must create another InputEventAction
-	#	that seperates regular SHOOT and SHOOT_BY_MOUSE
-	if Input.is_action_just_released("SHOOT") or Input.is_action_just_released("SHOOT_BY_MOUSE"):
-		if snowballcount > 0:
-			full_ammo = false
-			#cool_down = 100
-			bb = bullet.instance()
-			bb.position = position
-			
-			if using_r_stick():
-				bb.set_direction_offset(Vector2(Input.get_joy_axis(get_player_id(), JOY_AXIS_2), Input.get_joy_axis(get_player_id(), JOY_AXIS_3)))
-			elif !using_r_stick() and not Input.is_action_just_released("SHOOT_BY_MOUSE"):
-				if motion != Vector2.ZERO:
-					bb.set_direction_offset(motion)
-					last_motion = motion
-				else:
-					bb.set_direction_offset(last_motion)
-			elif Input.is_action_just_released("SHOOT_BY_MOUSE"):
-				bb.set_direction_absolute(get_global_mouse_position())
-							
-			# Add snowball to scene and fire
-			get_tree().get_root().add_child(bb)
-			snowballcount -= 1
 	
 	if (Input.is_action_just_released("SHOOT_BY_MOUSE") and Input.is_action_just_released("SHOOT")):
 		print(Input.is_action_just_released("SHOOT_BY_MOUSE"))
@@ -108,6 +92,36 @@ func _process(delta):
 		if canInteract:
 			interactable.interact()
 			#print_debug(snowballcount)
+
+func _input(event):
+	# When releasing SHOOT* button, fires a snowball into the scene.
+	# 	Will aim with the right analog stick, though when centered within deadzones
+	#	it will fire in current direction. If mouse will fire at mouse.
+	#	With limitations of Input object, we must create another InputEventAction
+	#	that seperates regular SHOOT and SHOOT_BY_MOUSE
+	var bb
+	if event.get_device() == player_id:
+		if event.is_action_released("SHOOT") or event.is_action_released("SHOOT_BY_MOUSE"):
+			if snowballcount > 0:
+				full_ammo = false
+				#cool_down = 100
+				bb = bullet.instance()
+				bb.position = position
+				
+				if using_r_stick():
+					bb.set_direction_offset(Vector2(Input.get_joy_axis(get_player_id(), JOY_AXIS_2), Input.get_joy_axis(get_player_id(), JOY_AXIS_3)))
+				elif !using_r_stick() and not Input.is_action_just_released("SHOOT_BY_MOUSE"):
+					if motion != Vector2.ZERO:
+						bb.set_direction_offset(motion)
+						last_motion = motion
+					else:
+						bb.set_direction_offset(last_motion)
+				elif Input.is_action_just_released("SHOOT_BY_MOUSE"):
+					bb.set_direction_absolute(get_global_mouse_position())
+								
+				# Add snowball to scene and fire
+				get_tree().get_root().add_child(bb)
+				snowballcount -= 1
 
 func draw_trajectory():
 	# Create an aim object at this object's current position
