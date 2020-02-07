@@ -10,6 +10,7 @@ var player = null
 func _ready():
 	get_node('Area2D').connect("body_entered",self,'_on_Area2D_body_entered')
 	get_node('Area2D').connect("body_exited",self,'_on_Area2D_body_exited')
+	get_node('Area2D').connect("area_entered", self, '_on_InteractionArea2D_area_entered')
 	
 func _on_Area2D_body_entered(body):
 	CanInteract = true
@@ -22,6 +23,7 @@ func _on_Area2D_body_exited(body):
 	player = null
 	var infoText = get_node('Label')
 	infoText.visible = false
+
 
 func interact():
 	if CanInteract:
