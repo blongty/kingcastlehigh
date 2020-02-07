@@ -10,6 +10,7 @@ var storage
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	storage = init_storage
+	print("storage starting with " + str(storage) + "snowballs")
 	get_node('InteractionArea2D').connect("body_entered", self, '_on_InteractionArea2D_body_entered')
 	get_node('InteractionArea2D').connect("body_exited", self, '_on_InteractionArea2D_body_exited')
 	get_node('InteractionArea2D').connect("area_entered", self, '_on_InteractionArea2D_area_entered')
@@ -42,10 +43,11 @@ func interact():
 	if canInteract:
 		var infoText = get_node('Label')
 		infoText.text = 'INTERACTED!'
-		if player.hasSnow == true:
-			if !player.full_ammo:
-				storage = player.add_snowballcount(storage)
-				player.hasSnow = false
+		#if player.hasSnow == true:
+		if !player.full_ammo:
+			storage = player.add_snowballcount(storage)
+			player.hasSnow = false
+			print("storage has left " + str(storage))
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

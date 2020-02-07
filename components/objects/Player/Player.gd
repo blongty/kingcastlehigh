@@ -147,7 +147,7 @@ func add_snowballcount(amount):
 	snowballcount += amount
 	if snowballcount > max_snowballcount:
 		full_ammo = true
-		var overflow = max_snowballcount - snowballcount
+		var overflow = snowballcount - max_snowballcount
 		snowballcount = max_snowballcount
 		return overflow
 
