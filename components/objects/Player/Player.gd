@@ -108,6 +108,7 @@ func _input(event):
 				#cool_down = 100
 				bb = bullet.instance()
 				bb.position = position
+				bb.pid_owner = player_id
 				
 				if abs(Input.get_joy_axis(player_id, JOY_AXIS_2)) > joy_deadzone or \
 	  			  abs(Input.get_joy_axis(player_id, JOY_AXIS_3)) > joy_deadzone:
@@ -156,10 +157,7 @@ func _on_snowball_enter(area : Area2D):
 	if area.collision_layer == 16:
 		interactable = area.get_parent()
 		canInteract = true
-	elif area.collision_layer == 32:
-		interactable = area.get_parent()
-		snowpilecanInteract = true
-	elif area.collision_layer == 0 and area.get_parent() != self:
+	elif area.collision_layer == 2 and area.get_parent().get_pid_owner() != player_id:
 		add_snowballcount(1)
 	else:
 		in_range = 100
