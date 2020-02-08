@@ -10,9 +10,10 @@ var FollowPath = preload("res://levels/path_follownode/follow.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$tick.set_wait_time(wave_delay)
-	($tick as Timer).connect("timeout", self, "_on_wave_timeout")
-	$tick.start()
+	pass
+#	$tick.set_wait_time(wave_delay)
+#	($tick as Timer).connect("timeout", self, "_on_wave_timeout")
+#	$tick.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
