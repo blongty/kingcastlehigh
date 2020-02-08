@@ -159,7 +159,8 @@ func _on_snowball_enter(area : Area2D):
 	elif area.collision_layer == 32:
 		interactable = area.get_parent()
 		snowpilecanInteract = true
-	
+	elif area.collision_layer == 2:
+		add_snowballcount(1)
 	else:
 		in_range = 100
 
