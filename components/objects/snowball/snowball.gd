@@ -4,6 +4,7 @@ var direction : Vector2
 var life = 1
 
 export(float) var speed = 1000
+var pid_owner
 
 # Once added to the scene tree, function will immediately start moving
 func _ready():
@@ -34,3 +35,6 @@ func _on_other_area_entered(other : Area2D):
 	life -= 1
 	if (life < 0):
 		queue_free()
+		
+func get_pid_owner():
+	return pid_owner
