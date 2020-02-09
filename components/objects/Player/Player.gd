@@ -58,7 +58,7 @@ func _process(delta):
 			abs(Input.get_joy_axis(player_id, JOY_AXIS_0)) > joy_deadzone:
 			motion.y += move_speed * Input.get_joy_axis(player_id, JOY_AXIS_1)
 			motion.x += move_speed * Input.get_joy_axis(player_id, JOY_AXIS_0)
-#		elif player_id == 0:
+#		else:
 #			if Input.is_action_pressed("MOVE_UP"):
 #				motion.y -= move_speed
 #			if Input.is_action_pressed("MOVE_DOWN"):
@@ -157,6 +157,9 @@ func _on_snowball_enter(area : Area2D):
 	if area.collision_layer == 16:
 		interactable = area.get_parent()
 		canInteract = true
+	elif area.collision_layer == 32:
+		interactable = area.get_parent()
+		snowpilecanInteract = true
 	elif area.collision_layer == 2 and area.get_parent().get_pid_owner() != player_id:
 		add_snowballcount(1)
 	else:

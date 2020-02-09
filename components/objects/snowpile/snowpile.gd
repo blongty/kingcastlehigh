@@ -32,6 +32,7 @@ func interact():
 		infoText.text = "Get Snow!"
 		if player.hasSnow == false:
 			player.hasSnow = true
+			queue_free()
 		
 	
 

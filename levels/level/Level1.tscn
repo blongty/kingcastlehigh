@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://components/ui/Snowy-Top-Down-2D-Game-Tileset3.jpg" type="Texture" id=1]
 [ext_resource path="res://levels/level_tilemap.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://components/objects/generator/SnowballGenerator.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/objects/ice-king.png" type="Texture" id=7]
 [ext_resource path="res://components/objects/enemy_spawner/EnemySpawner.tscn" type="PackedScene" id=8]
+[ext_resource path="res://components/objects/RandomGenerator/RandomGenerator.tscn" type="PackedScene" id=9]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 2, 0 )
@@ -41,18 +42,6 @@ position = Vector2( 189.932, -1.72672 )
 [node name="Wall4" parent="Wall" instance=ExtResource( 4 )]
 position = Vector2( 129.72, -2.73746 )
 
-[node name="snowpile" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1476.07, 249.712 )
-scale = Vector2( 0.5, 0.5 )
-
-[node name="snowpile2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 808.549, 26.4767 )
-scale = Vector2( 0.4, 0.5 )
-
-[node name="snowpile3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 296.42, 144.66 )
-scale = Vector2( 0.4, 0.5 )
-
 [node name="SnowballGenerator" parent="." instance=ExtResource( 6 )]
 position = Vector2( 610.512, 959.213 )
 rotation = -2.87979
@@ -76,3 +65,58 @@ texture = ExtResource( 7 )
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 8 )]
 position = Vector2( -1.34531, 0.844604 )
+
+[node name="RandomGenerator" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1090.9, 671.275 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 667.216, 665.864 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator3" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1104.45, 449.784 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator5" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1712.61, 679.673 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator4" parent="." instance=ExtResource( 9 )]
+position = Vector2( 142.143, 227.295 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator6" parent="." instance=ExtResource( 9 )]
+position = Vector2( 346.372, 491.231 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator7" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1240.41, 552.748 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator8" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1340.89, 230.812 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator9" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1693.58, 480.979 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator10" parent="." instance=ExtResource( 9 )]
+position = Vector2( 469.83, 297.96 )
+pp = 5000
+output = ExtResource( 5 )
+
+[node name="RandomGenerator11" parent="." instance=ExtResource( 9 )]
+position = Vector2( 839.405, 668.431 )
+pp = 5000
+output = ExtResource( 5 )
