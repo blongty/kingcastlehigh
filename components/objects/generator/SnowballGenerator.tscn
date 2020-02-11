@@ -6,19 +6,19 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 260.65, 110.45 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 80
 outline_size = 10
 outline_color = Color( 0.113725, 0.384314, 0.580392, 1 )
 font_data = ExtResource( 2 )
 
-[sub_resource type="Theme" id=4]
-default_font = SubResource( 3 )
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=4]
 radius = 549.641
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 267.514, 116.162 )
 
 [node name="SnowballGenerator" type="StaticBody2D"]
@@ -56,10 +56,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Control/CenterContainer"]
-margin_left = 970.0
-margin_right = 1080.0
+margin_left = 969.0
+margin_right = 1079.0
 margin_bottom = 180.0
-theme = SubResource( 4 )
+theme = SubResource( 3 )
 text = "#"
 align = 1
 valign = 1
@@ -76,14 +76,14 @@ __meta__ = {
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="SnowballCollision" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SnowballCollision"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 [connection signal="body_entered" from="InteractionArea2D" to="." method="_on_InteractionArea2D_body_entered"]
 [connection signal="body_exited" from="InteractionArea2D" to="." method="_on_InteractionArea2D_body_exited"]
 [connection signal="area_entered" from="SnowballCollision" to="." method="_on_SnowballCollision_area_entered"]

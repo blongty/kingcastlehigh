@@ -7,7 +7,7 @@
 extents = Vector2( 4.79019, 8.68068 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 7.71368, 10.4166 )
+extents = Vector2( 6.37211, 7.51731 )
 
 [node name="snowpile" type="StaticBody2D"]
 collision_layer = 16
