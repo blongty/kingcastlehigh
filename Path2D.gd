@@ -8,7 +8,7 @@ func _ready():
 
 
 func _process(delta):
-	follow.set_offset(follow.get_offset() + 350* delta)
+	follow.set_offset(follow.get_offset() + 200* delta)
 
 func add_enemy(enemy):
 	$PathFollow2D.add_child(enemy)
