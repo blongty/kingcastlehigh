@@ -4,6 +4,7 @@ var direction : Vector2
 var life = 1
 
 export(float) var speed = 5000
+var pid_owner
 
 # Once added to the scene tree, function will immediately start moving
 func _ready():
@@ -26,15 +27,28 @@ func set_direction_offset(offset: Vector2, radius: float = -100):
 	direction = direction.normalized()
 
 func _process(delta):
-	#print(get_linear_velocity())
 	pass
 
 func _on_other_area_entered(other : Area2D):
+	if other.collision_layer == 16:
+		return
+	elif other.collision_layer == 1:
+		if other.get_parent().get_player_id() == get_pid_owner():
+			return
 	life -= 1
-	if (life < 0):
-		#get_parent().get_child(0).position = position;
+	if (life <= 0):
 		queue_free()
 
+func _on_other_body_entered(other : Node):
+	if other.collision_layer == 1:
+		if other.get_player_id() == get_pid_owner():
+			return
+	life -= 1
+	if (life <= 0):
+		queue_free()
 
 func _on_Timer_timeout():
 	queue_free()
+
+func get_pid_owner():
+	return pid_owner

@@ -17,8 +17,7 @@ export (int) var player_id
 onready var firepoint = get_node("firepoint")
 
 var canInteract = false
-var snowpilecanInteract = false
-var interactable = null
+var interactables = []
 var hasSnow = false
 var full_ammo
 var last_motion = Vector2(200, 0)
@@ -91,8 +90,19 @@ func _process(delta):
 	# Interacting with object
 	if Input.is_action_just_pressed("INTERACT"):
 		if canInteract:
-			interactable.interact()
+			get_closest_interactable().interact()
 			#print_debug(snowballcount)
+
+func get_closest_interactable():
+	var closest_obj
+	var closest_obj_dist = 9999
+	
+	for i in interactables:
+		if get_global_transform().get_origin().distance_to(i.get_global_transform().get_origin()) < closest_obj_dist:
+			closest_obj = i
+			closest_obj_dist = get_global_transform().origin.distance_to(i.get_global_transform().get_origin())
+	
+	return closest_obj
 
 func _input(event):
 	# When releasing SHOOT* button, fires a snowball into the scene.
@@ -134,6 +144,7 @@ func draw_trajectory():
 	var bb
 	bb = aim.instance()
 	bb.position = position
+	bb.pid_owner = player_id
 	
 	if abs(Input.get_joy_axis(player_id, JOY_AXIS_2)) > joy_deadzone or \
 	  abs(Input.get_joy_axis(player_id, JOY_AXIS_3)) > joy_deadzone:
@@ -150,24 +161,24 @@ func draw_trajectory():
 	
 	# Adds to the scene and draws it
 	get_tree().get_root().add_child(bb)
-	#print_tree_pretty()
 
 func _on_snowball_enter(area : Area2D):
-	# If area detected is on Layer 5 = Bit 4 = 2^4 = 16 (Generator Layer), then turn on interaction
-	if area.collision_layer == 16:
-		interactable = area.get_parent()
+	# If within generator or snowpile
+	if area.collision_layer == 16 or area.collision_layer == 64:
+		interactables.append(area.get_parent())
 		canInteract = true
-	elif area.collision_layer == 32:
-		interactable = area.get_parent()
-		snowpilecanInteract = true
+	# If within incoming snowball and gets hit by
 	elif area.collision_layer == 2 and area.get_parent().get_pid_owner() != player_id:
 		add_snowballcount(1)
+	# No idea wtf this is
 	else:
 		in_range = 100
 
 func _on_Area2D_area_exited(area):
-	canInteract = false
-	snowpilecanInteract = false
+	if area.collision_layer == 16 or area.collision_layer == 64:
+		interactables.erase(area.get_parent())
+		if interactables.empty():
+			canInteract = false
 
 func add_snowballcount(amount):
 	snowballcount += amount

@@ -4,9 +4,10 @@
 [ext_resource path="res://components/objects/snowpile/boardClose_stage3_car-show-pile.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 17.6895 )
+extents = Vector2( 4.79019, 8.68068 )
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.71368, 10.4166 )
 
 [node name="snowpile" type="StaticBody2D"]
 collision_layer = 16

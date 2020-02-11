@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ice-king.png-913a39e504bbd4dcd6460f7dc6fd3653.stex"
+path="res://.import/ice-king.png-0c1692cb448180e81056e677ca04f407.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/objects/ice-king.png"
-dest_files=[ "res://.import/ice-king.png-913a39e504bbd4dcd6460f7dc6fd3653.stex" ]
+source_file="res://components/objects/ice_king/ice-king.png"
+dest_files=[ "res://.import/ice-king.png-0c1692cb448180e81056e677ca04f407.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

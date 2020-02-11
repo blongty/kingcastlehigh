@@ -1,13 +1,27 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://components/objects/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://components/objects/snowpile/snowpile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://components/objects/generator/SnowballGenerator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/objects/generator/sprite.png" type="Texture" id=4]
 
 [node name="Node" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 355.732, 305.99 )
+position = Vector2( 704.732, 573.99 )
+
+[node name="Player2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 539.732, 861.99 )
+player_id = 1
+
+[node name="snowpile" parent="." instance=ExtResource( 2 )]
+position = Vector2( 879.985, 332.39 )
 
 [node name="SnowballGenerator" parent="." instance=ExtResource( 3 )]
-position = Vector2( 951.132, 607.458 )
-scale = Vector2( 0.25, 0.25 )
+position = Vector2( 949.398, 611.453 )
+scale = Vector2( 0.4, 0.4 )
+
+[node name="Sprite" parent="SnowballGenerator" index="2"]
+texture = ExtResource( 4 )
+
+[editable path="SnowballGenerator"]

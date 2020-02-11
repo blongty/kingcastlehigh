@@ -32,9 +32,21 @@ func set_direction_offset(offset: Vector2, radius: float = -100):
 			
 
 func _on_other_area_entered(other : Area2D):
+	if other.collision_layer == 1:
+		if other.get_parent().get_player_id() == get_pid_owner():
+			return
 	life -= 1
-	if (life < 0):
+	if (life <= 0):
 		queue_free()
-		
+
+#func _on_other_body_entered(other : Node):
+#	if other.collision_layer == 1:
+#		if other.get_player_id() == get_pid_owner():
+#			return
+#	life -= 1
+#	print(life)
+#	if (life <= 0):
+#		queue_free()
+
 func get_pid_owner():
 	return pid_owner
