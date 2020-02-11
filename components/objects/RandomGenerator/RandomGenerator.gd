@@ -13,4 +13,4 @@ func _process(delta):
 		print ("a snowpile is randomly generated")
 		bb = output.instance()
 		bb.position = position
-		get_tree().get_root().add_child(bb)
+		get_tree().get_root().get_node("Node2D").add_child(bb)

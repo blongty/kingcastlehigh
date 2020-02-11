@@ -89,6 +89,7 @@ rotation = 1.88711
 scale = Vector2( 2.70983, 2.70983 )
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 8 )]
+EnemyWaves = [ [ "NE" ] ]
 
 [node name="RandomGenerator" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1090.9, 671.275 )

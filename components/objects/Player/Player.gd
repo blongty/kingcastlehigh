@@ -98,7 +98,7 @@ func _process(delta):
 				var sn
 				sn = snowp.instance()
 				sn.position = position
-				get_tree().get_root().add_child(sn)
+				get_tree().get_root().get_node("Node2D").add_child(sn)
 				sn.get_node("CollisionShape2D").free()
 				hasSnow = false
 				
@@ -148,7 +148,9 @@ func _input(event):
 #					bb.set_direction_absolute(get_global_mouse_position())
 #
 				# Add snowball to scene and fire
-				get_tree().get_root().add_child(bb)
+				get_tree().get_root().get_node("Node2D").add_child(bb)
+				print(bb.get_path())
+				#print(get_path)
 				snowballcount -= 1
 
 func draw_trajectory():
@@ -174,7 +176,7 @@ func draw_trajectory():
 #		bb.set_direction_absolute(get_global_mouse_position())
 	
 	# Adds to the scene and draws it
-	get_tree().get_root().add_child(bb)
+	get_tree().get_root().get_node("Node2D").add_child(bb)
 
 func _on_snowball_enter(area : Area2D):
 	# If within generator or snowpile
