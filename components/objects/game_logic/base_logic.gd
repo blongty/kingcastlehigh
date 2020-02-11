@@ -11,6 +11,7 @@ export(int) var delay_between_stage_clear = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$game_over_screen.hide()
 	enemy_spawner_node = find_node("EnemySpawner", true, false)
 	ice_king = find_node("IceKing", true, false)
 	
@@ -48,8 +49,15 @@ func _on_wave_clear():
 func _on_stage_clear():
 	if stage_life > 0:
 		print("Stage clear!")
+		$game_over_screen/button_restart.connect("pressed", self, "_restart")
+		$game_over_screen.show()
 	
 func _on_king_hurt():
 	stage_life -= 1
 	if stage_life <= 0:
 		print("Game Over!")
+		$game_over_screen/button_restart.connect("pressed", self, "_restart")
+		$game_over_screen.show()
+		
+func _restart():
+	get_tree().reload_current_scene()
