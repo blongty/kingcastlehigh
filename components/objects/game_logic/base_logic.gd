@@ -49,15 +49,18 @@ func _on_wave_clear():
 func _on_stage_clear():
 	if stage_life > 0:
 		print("Stage clear!")
-		$game_over_screen/button_restart.connect("pressed", self, "_restart")
-		$game_over_screen.show()
+		_show_game_over()
 	
 func _on_king_hurt():
 	stage_life -= 1
 	if stage_life <= 0:
 		print("Game Over!")
-		$game_over_screen/button_restart.connect("pressed", self, "_restart")
-		$game_over_screen.show()
+		_show_game_over()
+		
+func _show_game_over():
+	$game_over_screen/button_restart.connect("pressed", self, "_restart")
+	$game_over_screen.show()
 		
 func _restart():
-	get_tree().reload_current_scene()
+	get_tree().change_scene(get_filename())
+	

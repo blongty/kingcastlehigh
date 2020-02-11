@@ -157,6 +157,7 @@ AIM_DOWN={
 2d_physics/layer_5="generator_interaction"
 2d_physics/layer_6="generator_snowball"
 2d_physics/layer_7="snowpile"
+2d_physics/layer_8="king"
 
 [rendering]
 

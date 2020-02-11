@@ -15,7 +15,7 @@ func _ready():
 
 
 func _on_snowball_enter(area : Area2D):
-	if area.collision_layer == 2 or area.collision_layer == 32:
+	if area.collision_layer == 2 or area.collision_layer == 128:
 		life -= 1
 	if life <= 0:
 		emit_signal("enemy_has_died", self)
