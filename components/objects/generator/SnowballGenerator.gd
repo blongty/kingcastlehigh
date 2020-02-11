@@ -38,8 +38,10 @@ func interact():
 	if canInteract:
 		if !player.full_ammo and !player.hasSnow:
 			storage = player.add_snowballcount(storage)
-		elif player.hasSnow:
+		elif player.hasSnow and storage < max_storage:
 			storage += 1
+			if storage > max_storage:
+				storage = max_storage
 			player.hasSnow = false
 		infoText.text = str(storage)
 
